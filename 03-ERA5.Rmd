@@ -1,0 +1,127 @@
+# ERA5
+
+## Setup (macOS)
+
+1. Create an account [here](https://cds.climate.copernicus.eu/#!/home)
+
+2. Open a new terminal window
+
+3. Install python by running these three commands in the terminal
+
+```
+xcode-select --install
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+brew install python3
+```
+
+4. Create and then open a new file through these two commands in the 
+
+```
+touch ~/.cdsapirc
+
+open ~/.cdsapirc
+```
+
+5. Navigate to [this page](https://cds.climate.copernicus.eu/api-how-to) and ensure you’re logged in. Copy the two lines of text in the first black code box and paste them into your .cdsapirc file, then save and close the file. The first line is a current link to the API, the second is your unique UID and API key. 
+(If the second line is “key: {uid}:{api-key}”, refresh the page or open it in a different tab after ensuring you’re logged in.)
+
+
+6. Install the API by running the following command in the terminal
+```
+pip install cdsapi
+```
+Or if you have Anaconda, run
+```
+conda config --add channels conda-forge
+
+conda install cdsapi
+```
+7. Agree to the terms of use at the bottom of [this page](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-land?tab=form) to gain access to ERA-5 Land: 
+
+
+## Setup (Windows)
+
+1. Create an account [here](https://cds.climate.copernicus.eu/#!/home).
+
+2. Check the email to create a password.
+
+3. [Log in to CDS](https://cds.climate.copernicus.eu/user/66418) and click on “Search” on the top tab and “How to use the CDS API”.
+
+4. Copy the two lines (url and key) in the window under “Install the CDS API key”.
+
+5. Go to your C:Users/Username folder.
+
+6. Create a new text document and open it.
+
+7. Paste the two lines you copied.
+
+8. Go to “File” -> “Save as” and name it “.cdsapirc” and select “All files” for text type.
+
+9. You can delete the original text file.
+
+10. Install the API by running the following command in the terminal
+```
+pip install cdsapi
+```
+Or if you have Anaconda, run
+```
+conda config --add channels conda-forge
+
+conda install cdsapi
+```
+
+11. Agree to the terms of use at the bottom of [this page](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-land?tab=form) to gain access to ERA-5 Land.
+
+## Call the API
+
+1. Go to [this page](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-land?tab=form).
+
+2. Select all variables you wish to include and temporal and spatial bounds. Select GRIB as the output. (My API call failed when using netCDF). [**Be aware that the time is in UTC.**]{color="red"} For example if you want data for January 1st at noon in WA (UTC-8), you have to download the data for January 1st at 8pm. 
+
+3. Scroll to the bottom of the page. Select “Show API request”. 
+
+4. Open a terminal window and start python with the command “python3”. You should see a “>>>” next to your cursor, indicating you are in a python environment.
+
+5. Copy the API request code from the “Show API request” box and paste it into your terminal window and run it to call the api and download your data.
+
+
+## Code example
+
+***Getting air temperature in Lind, WA (-118.57°, 47°) for January 1-31 in 2017***  
+
+From [this page](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-land?tab=form), 
+check in **2m temperature**, 2017, January 1-31, 0:00-23:00.
+
+Any extent is fine as long as (-118.57°, 47°) is included.
+
+```
+library(raster)
+library(MALDIquant)
+
+db <- brick(PATH_TO_GRIBFILE)
+df <- rasterToPoints(db) %>% as.data.frame()
+lon <- sort(df$x)[match.closest(-118.57, sort(df$x))]
+lat <- sort(df$y)[match.closest(47, sort(df$y))]
+array <- df[df$x == lon & df$y == lat, ]
+
+offset <- 8 # Data are stored as UCT. So we need adjustment to be aligned to the local time.
+
+vals <- c()
+for (i in (1 + offset) : dim(array)[2]) {
+  vals <- c(vals, array[, 2 + i])  # adding 2 because the first two columns are x and y.
+}
+
+days <- c()
+for (i in 1:31) {
+  days <- c(days, paste0("2017-01-", i))
+}
+
+df <- data.frame("Date" = rep(days, each = 24),
+                 "Hour" = 0:23)
+df <- cbind(df[1 : (31 * 24 - offset), ], "Data" = vals - 273.15)
+
+df$Date <- format(as.POSIXct(paste0(df$Date, " ", df$Hour, ":00")), format = "%Y-%m-%d %H:%M")
+
+```

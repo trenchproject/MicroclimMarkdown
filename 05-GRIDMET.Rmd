@@ -1,0 +1,46 @@
+# GRIDMET
+
+## How to use GRIDMET
+Everything takes place on Rstudio.
+
+1. Get the AIO and climateR packages from github
+```devtools::install_github(c("mikejohnson51/AOI", "mikejohnson51/climateR"))```
+
+2. Run ```AOI = aoi_get()``` to get the AOI (area of interest).
+The area options are country name, country region such as Asia and North America, US states, US region, or US states + counties.
+
+3. Run ```getGridMET(AOI, param, startDate, endDate = NULL)``` where AOI is what you get from 2 and param is the variable of interest.
+
+
+## Code example
+
+***Getting daily maximum temperature in Lind, WA (-118.57°, 47°) for May 1-31 in 2019***
+
+```
+library(AOI)
+library(climateR)
+library(MALDIquant)
+library(raster)
+library(magrittr)
+
+AOI = aoi_get(state = "WA", county = "adams")
+p = getGridMET(AOI, param = "tmax", startDate = paste0("2017-05-01"), endDate = paste0("2017-05-31"))
+r = raster::brick(p)
+
+array <- c()
+for (i in 1:31) {
+  df <- rasterToPoints(r[[i]]) %>% as.data.frame()
+  x <- sort(df$x)[match.closest(-118.57, sort(df$x))]
+  y <- sort(df$y)[match.closest(47, sort(df$y))]
+  array <- c(array, df[df$x == x & df$y == y, 3])
+  # columns are ["x", "y", "data"] so 3 corresponds to the data.
+}
+
+days <- c()
+for (i in 1:31) {
+  days <- c(days, paste0("2017-05-", i))
+}
+
+df <- data.frame(Date = as.Date(days),
+                 Data = array - 273.15)
+```

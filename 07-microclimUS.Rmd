@@ -1,0 +1,52 @@
+# microclimUS
+
+## How to use microclimUS
+
+1. Go to the [publication](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/ecy.2829).
+
+1. From “Open Research” tab, click the link to the data.
+
+2. Select the data type you want to download and click “download” on the far right. 
+
+3. Open the zip folder and move the file of the year you are interested in to the same directory as your Rproject. 
+
+4. Install ncdf4 package in Rstudio. ```install.packages("ncdf4")``` 
+
+5. Open the file using ```nc <- nc_open("filename")``` and get the values using ```ncvar_get(nc)```.
+Pay attention to the dimension of the data. Oftentimes, it is arranged as array[longitude, latitude, time]. ```nc$dim$longitude$vals``` and ```nc$dim$latitude$vals``` let you see the values of longitude and latitude respectively, which is necessary to obtain the index of the coordinates you want.
+
+6. The units can be viewed by ```nc$var$[VARIABLE_NAME]$units``` or opening nc in the viewer.
+
+
+## Code example
+
+***Getting data for soil temperature 1 m below ground (0% shade) in Lind, WA (-118.57°, 47°) for June 1-31 in 2015***  
+
+Download **soil100cm_0pctShade.zip** from [here](https://knb.ecoinformatics.org/view/doi:10.5063/F1B56H16).
+
+```
+nc <- nc_open(PATH_TO_NCFILE)
+
+ncvar <- ncvar_get(nc)
+
+lonInd <- match.closest(-118.57, nc$dim$longitude$vals)
+lat <- sort(nc$dim$latitude$vals)[match.closest(47, sort(nc$dim$latitude$vals))]
+latInd <- match(lat, nc$dim$latitude$vals)
+  
+vals <- c()
+extra <- 24 * 151 # The data are ordered from January to December. June 1st is day 151 in 2015.
+for (i in 1 : (24 * 31)) {
+  vals <- c(vals, ncvar[lonInd, latInd, i + extra])
+}
+  
+days <- c()
+for (i in 1:31) {
+  days <- c(days, paste0("2015-06-", i))
+}
+
+df <- data.frame("Date" = rep(days, each = 24), 
+                 "Hour" = 0:23,
+                 "Data" = vals / 10)  # Converting units
+
+df$Date <- format(as.POSIXct(paste0(df$Date, " ", df$Hour, ":00")), format = "%Y-%m-%d %H:%M")
+```

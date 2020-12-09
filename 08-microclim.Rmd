@@ -1,0 +1,43 @@
+# microclim
+
+## How to use microclim
+
+1. Go to the [publication](https://figshare.com/collections/microclim_Global_estimates_of_hourly_microclimate_based_on_long_term_monthly_climate_averages/878253) 
+
+2. Select the dataset (zip file) you are looking for from the list and click it. 
+
+3. Click on the down arrow to download the data.
+
+4. Open the file using ```nc <- nc_open("filename")``` and get the values using ```ncvar_get(nc)```.
+Pay attention to the dimension of the data. Oftentimes, it is arranged as array[longitude, latitude, time]. ```nc$dim$longitude$vals``` and ```nc$dim$latitude$vals``` let you see the values of longitude and latitude respectively, which is necessary to obtain the index of the coordinates you want.
+
+
+## Code example
+
+***Getting solar radiation in Maricao Forest, Puerto Rico (-67°, 18.15°) for January, 2017***  
+
+
+Download **solar_radiation_Wm2.zip** from [here](https://figshare.com/collections/microclim_Global_estimates_of_hourly_microclimate_based_on_long_term_monthly_climate_averages/878253).
+
+```
+nc <- nc_open(PATH_TO_NCFILE)
+ncvar <- ncvar_get(nc)
+# dimension: (lon, lat, hour) = (2159, 852, 24)
+  
+lonInd <- match.closest(-67, nc$dim$longitude$vals)
+lat <- sort(nc$dim$latitude$vals)[match.closest(18.15, sort(nc$dim$latitude$vals))]
+latInd <- match(lat, nc$dim$latitude$vals)
+  
+array <- c()
+for (i in 1:24) {
+  array <- c(array, ncvar[lonInd, latInd, i])
+}
+  
+dates <- rep(paste0("2017-01-15"), 24)
+  
+df <- data.frame("Date" = dates, 
+                 "Hour" = rep(0:23), 
+                 "Data" = array)
+  
+df$Date <- format(as.POSIXct(paste0(df$Date, " ", df$Hour, ":00")), format = "%Y-%m-%d %H:%M")
+```

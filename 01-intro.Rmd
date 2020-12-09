@@ -1,21 +1,13 @@
-# Introduction {#intro}
+# Microclimate datasets
 
-You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
-
-Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
-
-```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
-par(mar = c(4, 4, .1, .1))
-plot(pressure, type = 'b', pch = 19)
-```
-
-Reference a figure by its code chunk label with the `fig:` prefix, e.g., see Figure \@ref(fig:nice-fig). Similarly, you can reference tables generated from `knitr::kable()`, e.g., see Table \@ref(tab:nice-tab).
-
-```{r nice-tab, tidy=FALSE}
-knitr::kable(
-  head(iris, 20), caption = 'Here is a nice table!',
-  booktabs = TRUE
-)
-```
-
-You can write citations, too. For example, we are using the **bookdown** package [@R-bookdown] in this sample book, which was built on top of R Markdown and **knitr** [@xie2015].
+| |**Horizontal coverage**|**Horizontal resolution**|**Vertical coverage**|**Vertical resolution**|**Temporal Coverage**|**Temporal resolution**|**Variables**
+:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:
+ERA-5 Land|Global|0.1° x 0.1°|2m above - 289cm below|0-7cm, 7-28cm, 28-100cm, 100-289cm|1981-now|hourly|Wind,dewpoint, temp, evap, soil water, snow, many variables: etc
+GLDAS 2.0|Global|0.25° x 0.25°|Surface - 200cm below|10cm, 40cm, 100cm, 200cm|1948 - 2014|3-Hourly|Many (see list below)
+GLDAS 2.1|Global|0.25° x 0.25°|Surface - 200cm below|10cm, 40cm, 100cm, 200cm|2000 - 3-months behind current|3-Hourly|Many (see list below)
+GRIDMET|US only|0.04° x 0.04°|Surface|Surface|1979 - yesterday|Daily|Precip, Max/Min humidity, max/min temp, mean evap.
+NicheMapR/Microclima|Global|30m coarsest, 3m finest|5cm above - 75cm below|1 cm|1957 - now|Hourly|Temp, Radiation, Wind speed, Humidity (time-series, not gridded):Soil moisture, Snow cover
+NOAA NCDC|Global|One location (lat, lon)|Surface|Surface|Varies|Varies|Precip, min/max temp, snowfall and depth, etc dep. On location
+SNODAS|US only|1km x 1km|Surface|Surface|Sep. 2003 - now|Daily |Snow variables
+microclim|Global|15km x 15km|surface to 1m depth|0, 2.5, 5, 10, 15, 20, 30, 50, 100, 200cm|1 day each month of 1 year|Hourly for 1 day|air temperature, wind speed, relative humidity, solar radiation, sky radiation and substrate temperatures from the surface to 1m below
+microclimUS|US only|4km x 4km|2m above - 2m below|Below at [0, 2.5, 5, 10, 15, 20, 30, 50, 100 and 200cm] at [0, 50, 75 and 90%] shade. Above at 1cm and 200cm |1979 - 2017|Hourly|solar zenith angle, solar radiation, sky radiant temperature, air temp, wind speed, relative humidity, snow depth, soil temperature at specific depths, soil water potential at specific depths, soil moisture at specific depths, soil humidity at specific depths

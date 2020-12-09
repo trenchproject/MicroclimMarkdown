@@ -1,0 +1,50 @@
+# NOAA NCDC
+
+## How to use NOAA NCDC
+
+1. Go to [this website](https://www.ncdc.noaa.gov/cdo-web/token) and enter your email to get a token.
+
+2. Install rnoaa package in Rstudio. ```devtools::install_github("ropensci/rnoaa")```
+
+3. Search for a weather station in your area of interest by running ```ncdc_stations()``` function. In the $data section, you can get a list of stations within the extent. Mindate and maxdate are the period during which the data are collected, which is an important variable to look for.
+
+4. Choose a station and copy the station ID. Run the ```ncdc()``` function with the station ID and your preferred period and data type.
+
+
+## Code example
+
+***Getting data for minimum air temperatures in Maricao Forest, Puerto Rico (-67°, 18.15°) for March 1-31 in 2017***
+
+
+First, get a station id.
+```
+library(rnoaa)
+library(magrittr)
+
+ncdc_stations(extent = c(18.1, -67.1, 18.2, -66.9), token = "YOUR_TOKEN", limit = 50, datasetid = "GHCND")
+```
+You get a list of stations in the extent to pick from.
+Then obtain the data.
+
+```
+id = "GHCND:RQC00665908"
+
+data <- ncdc(datasetid = 'GHCND',
+        stationid = id,
+        token = "MpEroBAcjEIOFDbJdJxErtjmbEnLVtbq",
+        startdate = paste0("2017-03-01"),
+        enddate = paste0("2017-03-31"),
+        datatypeid = "TMIN")
+
+data <- data / 10 # Converting units
+
+days <- c()
+for (i in 1:31) {
+  days <- c(days, paste0("2017-03-", i))
+}
+
+df <- data$data[, c("date", "value")] %>%
+  as.data.frame() %>%
+  set_colnames(c("Date", "Data"))
+
+```
