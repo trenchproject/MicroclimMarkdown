@@ -7,7 +7,9 @@
 
 3. Select a state and a station from the list and hit "View".
 
-4. After the loading is complete, you will see the data. Right click on the page to save the data as a text file and open it. Notice that the file starts with the data documentation that are in #. Save the data documentation elsewhere if needed and manually delete all the lines with #. Save the file. 
+4. After the loading is complete, you will see the data. Right click on the page to save the data as a text file and open it. Notice that the file starts with the data documentation that are in #. 
+
+5. Save the data documentation elsewhere if needed and manually delete all the lines with #. Save the file. 
 
 ## Code example
 
