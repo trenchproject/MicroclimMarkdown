@@ -1,12 +1,16 @@
+---
+pagetitle: ERA5
+---
+
 # ERA5
 
 ## Setup (macOS)
 
-1. Create an account [here](https://cds.climate.copernicus.eu/#!/home)
+1. Create an account [here](https://cds.climate.copernicus.eu/).
 
-2. Open a new terminal window
+2. Open a new terminal window.
 
-3. Install python by running these three commands in the terminal
+3. Install python by running these three commands in the terminal.
 
 ```
 xcode-select --install
@@ -16,7 +20,7 @@ xcode-select --install
 brew install python3
 ```
 
-4. Create and then open a new file through these two commands in the 
+4. Create and then open a new file using these two commands in the terminal.
 
 ```
 touch ~/.cdsapirc
@@ -38,7 +42,7 @@ conda config --add channels conda-forge
 
 conda install cdsapi
 ```
-7. Agree to the terms of use at the bottom of [this page](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-land?tab=form) to gain access to ERA-5 Land: 
+7. Agree to the terms of use at the bottom of [this page](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-land?tab=form) to gain access to ERA-5 Land. 
 
 
 ## Setup (Windows)
@@ -61,7 +65,7 @@ conda install cdsapi
 
 9. You can delete the original text file.
 
-10. Install the API by running the following command in the terminal
+10. Install the API by running the following command in the terminal.
 ```
 pip install cdsapi
 ```
@@ -78,7 +82,7 @@ conda install cdsapi
 
 1. Go to [this page](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-land?tab=form).
 
-2. Select all variables you wish to include and temporal and spatial bounds. Select GRIB as the output. (My API call failed when using netCDF). [**Be aware that the time is in UTC.**]{color="red"} For example if you want data for January 1st at noon in WA (UTC-8), you have to download the data for January 1st at 8pm. 
+2. Select all variables you wish to include and temporal and spatial bounds. Select GRIB as the output. (You can alternatively use netCDF, but API calls sometimes fail for netCDF). [**Be aware that the time is in UTC.**]{color="red"} For example if you want data for January 1st at noon in WA (UTC-8), you have to download the data for January 1st at 8pm. 
 
 3. Scroll to the bottom of the page. Select “Show API request”. 
 
@@ -125,3 +129,6 @@ df <- cbind(df[1 : (31 * 24 - offset), ], "Data" = vals - 273.15)
 df$Date <- format(as.POSIXct(paste0(df$Date, " ", df$Hour, ":00")), format = "%Y-%m-%d %H:%M")
 
 ```
+
+## Using the ERA5 API from within R
+There are also several R packages with functions for accessing the ERA5 API from within R. The packages include ecmwfr ([vignette](https://cran.r-project.org/web/packages/ecmwfr/vignettes/cds_vignette.html)) and mcera5. Another option is the download_ERA() function in the KrigR package (tutorial [here](https://www.erikkusch.com/post/krigr-mats/krigrworkshop/)). 

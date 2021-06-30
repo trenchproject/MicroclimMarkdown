@@ -1,8 +1,10 @@
+---
+pagetitle: "Microclimate datasets"
+---
+
 # Microclimate datasets
 
-This [R shiny](https://map.trenchproject.com/RShiny_Microclim/) will be a good platform to compare each methods both temporally and spatially to help decide what methods best fit your needs.
-
-Here is a table of each method listing their coverage and variables.
+This user's guide facilitates accessing the microclimate datasets in the table below. We detail the horizontal, vertical, and temporal coverage. Our complementary [R shiny application](https://map.trenchproject.com/RShiny_Microclim/) allows comparing each methods both temporally and spatially to help select a dataset that best meets your needs.
 
 ```{r echo = FALSE, message=FALSE, warnings=FALSE, results='asis', out.width="75%"}
 library(kableExtra)

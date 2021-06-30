@@ -1,4 +1,4 @@
-# Selecting and accessing microclimate data: code resources
+# A Users' Guide to Accessing Microclimate Data
 
 This repository contains R Markdown text for a bookdown site with resources for accessing microclimate datasets. Within chapters corresponding the each dataset, we describe the requires set up and process for accessing data. The materials are complementary to an R Shiny [app](https://github.com/trenchproject/RShiny_Microclim) for selecting microclimate data.
 

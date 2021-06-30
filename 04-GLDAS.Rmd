@@ -1,3 +1,7 @@
+---
+pagetitle: GLDAS
+---
+
 # GLDAS
 
 ## How to use GLDAS
@@ -6,15 +10,15 @@
 
 2. [Link GES DISC with your account](https://disc.gsfc.nasa.gov/earthdata-login).
 
-3. Go to [this page](https://disc.gsfc.nasa.gov/datasets/GLDAS_NOAH025_3H_2.1/summary?keywords=GLDAS) and hit **Subset/Get Data**.
+3. Go to [this page](https://disc.gsfc.nasa.gov/datasets/GLDAS_NOAH025_3H_2.1/summary?keywords=GLDAS) and select **Subset/Get Data** in the data access panel on the right.
 
 4. Under the Download Method, select **Get File Subsets using the GES DISC Subsetter**.
 
-5. Refine date range and region and select the variables to download. Keep file format as **netCDF**.
+5. Refine date range and region and select the variables to download. Keep the file format as **netCDF**.
 
-6. Hit **Get data**.
+6. Select **Get data**.
 
-7. On the pop-up window, hit **Download links list**.
+7. On the pop-up window, select **Download links list**.
 
 8. Follow the instructions for one the methods [here](https://disc.gsfc.nasa.gov/data-access). wget is fairly straightforward. Follow the methods for *To download multiple data files at once...* instead of a single file. ```<your username>``` and the password are what you set up for the Earthdata account.
 

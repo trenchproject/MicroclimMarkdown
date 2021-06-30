@@ -1,12 +1,16 @@
+---
+pagetitle: NOAA NCDC
+---
+
 # NOAA NCDC
 
 ## How to use NOAA NCDC
 
 1. Go to [this website](https://www.ncdc.noaa.gov/cdo-web/token) and enter your email to get a token.
 
-2. Install rnoaa package in Rstudio. `devtools::install_github("ropensci/rnoaa")`
+2. Install the rnoaa package in R. `devtools::install_github("ropensci/rnoaa")`
 
-3. Search for a weather station in your area of interest by running `ncdc_stations()` function. In the $data section, you can get a list of stations within the extent. Mindate and maxdate are the period during which the data are collected, which is an important variable to look for.
+3. Search for a weather station in your area of interest by running `ncdc_stations()` function. In the $data section, you can get a list of stations within the extent. Mindate and maxdate are the period during which the data are collected, which is an important variable to examine.
 
 4. Choose a station and copy the station ID. Run the `ncdc()` function with the station ID and your preferred period and data type. To get units, include the argument `add_units = TRUE` when running `ncdc()`
 

@@ -1,16 +1,19 @@
+---
+pagetitle: microclim
+---
+
 # microclim
 
 ## How to use microclim
 
-1. Go to the [publication](https://figshare.com/collections/microclim_Global_estimates_of_hourly_microclimate_based_on_long_term_monthly_climate_averages/878253) 
+1. Go to the [figshare repository](https://figshare.com/collections/microclim_Global_estimates_of_hourly_microclimate_based_on_long_term_monthly_climate_averages/878253). 
 
 2. Select the dataset (zip file) you are looking for from the list and click it. 
 
 3. Click on the down arrow to download the data.
 
-4. Open the file using ```nc <- nc_open("filename")``` and get the values using ```ncvar_get(nc)```.
-Pay attention to the dimension of the data. Oftentimes, it is arranged as array[longitude, latitude, time]. ```nc$dim$longitude$vals``` and ```nc$dim$latitude$vals``` let you see the values of longitude and latitude respectively, which is necessary to obtain the index of the coordinates you want.
-
+4. Open the file using ```nc <- nc_open("filename")``` and extract the values using ```ncvar_get(nc)```.
+Pay attention to the dimension of the data. Oftentimes, data are arranged as array[longitude, latitude, time]. ```nc$dim$longitude$vals``` and ```nc$dim$latitude$vals``` let you see the values of longitude and latitude respectively, which are necessary to obtain the index of the coordinates you want.
 
 ## Code example
 

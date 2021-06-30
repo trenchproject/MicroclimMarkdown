@@ -1,21 +1,25 @@
+---
+pagetitle: MicroclimUS
+---
+
 # microclimUS
 
 ## How to use microclimUS
 
 1. Go to the [publication](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/ecy.2829).
 
-2. From “Open Research” tab, click the link to the data.
+2. From “Open Research” tab at the bottom, click the link to the data stored in the knb (Knowledge Base for Biodiversity).
 
 3. Select the data type you want to download and click “download” on the far right. 
 
-4. Open the zip folder and move the file of the year you are interested in to the same directory as your Rproject. 
+4. Open the zip folder and move the file for the year you are interested into the same directory as your Rproject. 
 
-5. Install ncdf4 package in Rstudio. ```install.packages("ncdf4")``` 
+5. Install ncdf4 package in Rstudio. ```install.packages("ncdf4")```. 
 
 6. Open the file using ```nc <- nc_open("filename")``` and get the values using ```ncvar_get(nc)```.
-Pay attention to the dimension of the data. Oftentimes, it is arranged as array[longitude, latitude, time]. ```nc$dim$longitude$vals``` and ```nc$dim$latitude$vals``` let you see the values of longitude and latitude respectively, which is necessary to obtain the index of the coordinates you want.
+Pay attention to the dimension of the data. Oftentimes, it is arranged as array[longitude, latitude, time]. ```nc$dim$longitude$vals``` and ```nc$dim$latitude$vals``` retrieve the values for longitude and latitude respectively, which are necessary to obtain the index of the coordinates you want.
 
-7. The units can be viewed by ```nc$var$[VARIABLE_NAME]$units``` or opening nc in the viewer.
+7. The units can be viewed using ```nc$var$[VARIABLE_NAME]$units``` or opening nc in the viewer.
 
 
 ## Code example

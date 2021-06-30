@@ -1,6 +1,6 @@
 --- 
-title: "Microclim"
-author: "Yutaro Sakairi"
+title: "A Users' Guide to Accessing Microclimate Data to Characterize Organismal Responses to Spatial and Temporal Environmental Variability"
+author: "Yutaro Sakairi, Abigail Meyer, and Lauren Buckley; The TrEnCh Project, University of Washington"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
@@ -9,7 +9,10 @@ bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: rstudio/bookdown-demo
-description: "This is a compilation of various methods to obtain microclimate data in the US."
+description: "A users' guide to accessing and processing microclimate datasets."
 ---
 
 # Preface
+![](figures/TRENCH_Logo.png)
+
+Most ecological analyses and forecasts use weather station data or coarse interpolated, gridded temperature data. Yet, these products often poorly capture the microclimates experienced by organisms that live near the surface and respond to fine scale spatial and temporal environmental variation. Sources of historic and projected future data that better capture microclimates are proliferating. This site attempts to make it easier for users to access and process microclimate data.  We include weather station data along with interpolated and dynamically-modelled gridded environmental data. We focus on datasets that offer (near) hourly data. Although several datasets are global, regional datasets are focused on the United States or North America. Each chapter provides resources for accessing and processing a particular dataset. This guide is complementary to our [interactive data visualization](https://map.trenchproject.com/RShiny_Microclim/) for exploring datasets. We recommend using the visualization to select a dataset and then using this resource to access the data.

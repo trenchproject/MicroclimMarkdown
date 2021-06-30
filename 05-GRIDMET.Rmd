@@ -1,16 +1,19 @@
+---
+pagetitle: GRIDMET
+---
+
 # GRIDMET
 
 ## How to use GRIDMET
-Everything takes place on Rstudio.
+Everything takes place within Rstudio.
 
-1. Install the AIO and climateR packages from github
+1. Install the AOI and climateR packages from github
 ```devtools::install_github(c("mikejohnson51/AOI", "mikejohnson51/climateR"))```
 
 2. Run ```AOI = aoi_get()``` to get the AOI (area of interest).
 The area options are country name, country region such as Asia and North America, US states, US region, or US states + counties.
 
-3. Run ```getGridMET(AOI, param, startDate, endDate = NULL)``` where AOI is what you get from 2 and param is the variable of interest.
-
+3. Run ```getGridMET(AOI, param, startDate, endDate = NULL)``` where AOI is the output from step 2 and param is the variable of interest.
 
 ## Code example
 

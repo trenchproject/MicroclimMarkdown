@@ -1,8 +1,12 @@
+---
+pagetitle: SNODAS
+---
+
 # SNODAS
 
 ## How to use SNODAS
 
-SNODAS data is available from the [web page](https://nsidc.org/data/g02158), 
+SNODAS data are available from going to the [web page](https://nsidc.org/data/g02158),
 clicking 'Go to FTP', and downloading the files of your choosing. The masked 
 and unmasked data files are organized on the FTP site in separate directories 
 labeled masked and unmasked. Within these two directories are subdirectories 
@@ -13,15 +17,15 @@ contains the tarred archive file, usually one for each day of the month. Each
 day has each variable separated into different files. The user guide has a table
 displaying the variable to product code conversions.
 
-A simple method is available for accessing SNODAS in R, dependent on the 
-NCAR/rwrfhydro library. This is demonstrated in the code exaple below.
-
+Below, we illustrate how to access SNODAS data using the NCAR/rwrfhydro package in R.
 
 ## SNODAS Code example
 
-***Getting SWE and Snow Depth***
+***Retrieving SWE and Snow Depth***
 
 ```
+#MAKE PATHS GENERIC
+
 library(rwrfhydro)
 
 # getPoints ----------------------------------------------------------------

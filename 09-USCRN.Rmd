@@ -1,3 +1,7 @@
+---
+pagetitle: USCRN
+---
+
 # USCRN
 
 ## How to use USCRN
@@ -6,7 +10,7 @@
 
 2. Click on **FTP Client Access** under either **Monthly**, **Daily**, **Hourly**, or **Sub-hourly** depending on your preference.
 
-3. Download HEADERS.txt file by clicking on it. Optionally download README.txt file, which can be referred to to see what each column means in the dataset.
+3. Download the HEADERS.txt file by clicking on it. Optionally download README.txt file, which provides a guide to interpreting each column in the dataset.
 
 4. Click the year of the data you want and select the station of interest, which will automatically download the data.
 

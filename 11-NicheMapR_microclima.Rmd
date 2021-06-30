@@ -1,10 +1,14 @@
-# NicheMapR + microclima
+---
+pagetitle: NicheMapR + microclima
+---
+
+#NicheMapR + microclima
 
 ## How to use NicheMapR + microclima
 
-Everything takes place in Rstudio
+Everything takes place in Rstudio.
 
-1. Install RNCEP, elevatr, NicheMapR, and microclima packages.
+1. Install the RNCEP, elevatr, NicheMapR, and microclima packages.
 
 ```
 install.packages(c("RNCEP", "elevatr"))
@@ -13,15 +17,15 @@ install_github('mrke/NicheMapR', 'ilyamaclean/microclima')
 
 2. Save the coordinates of the location of interest in an array. `lonlat <- c(lon, lat) # (longitude, latitude)`
 
-3. Save the start and end date for which you want to obtain data for.
+3. Save the start and end date for which you want to obtain data.
 ```
 dstart <- paste0("01/0", month, "/2017") # start date
 dfinish <- paste0("31/0", month, "/2017") # end date
 ```
 
-3. Save 10 different depths below ground and save it as a variable. The values have to start from 0 and must have exactly 10 values regardless of what variables you are looking to obtain. `DEP <- c(0, 3, 5, 10, 15, 20, 30, 50, 100, 200)`
+3. Save 10 different depths below ground as a variable. The values have to start from 0 and must have exactly 10 values regardless of what variables you are looking to obtain. `DEP <- c(0, 3, 5, 10, 15, 20, 30, 50, 100, 200)`
 
-4. Run `micro_ncep()` with the above variables. Variables are stored under different category depending on what you are looking for. `?micro_ncep` will give you a list of what each category includes and how each variable is named. 
+4. Run `micro_ncep()` with the above variables. Variables are stored under different categories depending on what you are looking for. `?micro_ncep` will give you a list of what each category includes and how each variable is named. 
 
 ## Code example
 

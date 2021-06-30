@@ -1,13 +1,19 @@
+---
+pagetitle: SCAN
+---
+
 # SCAN
 
-## How to use SCAN
-1. Go to [SCAN](https://www.wcc.nrcs.usda.gov/scan/).
+*NOTE: website change requires updating.*
 
-2. Select the data type you want under **Data reports**.
+## How to use SCAN
+1. Go to Soil Climate Analysis Network (SCAN) [site](https://www.nrcs.usda.gov/wps/portal/wcc/home/snowClimateMonitoring/soilClimateConditions/).
+
+2. Select the data type you want under **Reports**.
 
 3. Select a state and a station from the list and hit "View".
 
-4. After the loading is complete, you will see the data. Right click on the page to save the data as a text file and open it. Notice that the file starts with the data documentation that are in #. 
+4. After the loading is complete, you will see the data. Right click on the page to save the data as a text file and open it. Notice that the file starts with the data documentation indicated by #. 
 
 5. Save the data documentation elsewhere if needed and manually delete all the lines with #. Save the file. 
 
@@ -15,7 +21,7 @@
 
 ***Getting maximum air temperatures in Nunn, CO (-104.73°, 40.87°) for January 1-31 in 2017*** 
 
-From [this page](https://www.wcc.nrcs.usda.gov/scan/), go to "Daily SCAN Standard Report - Period of Record", and select COLORADO, then Nunn #1 and view.
+From [this page](https://www.nrcs.usda.gov/wps/portal/wcc/home/snowClimateMonitoring/soilClimateConditions/), go to "Daily SCAN Standard Report - Period of Record", and select COLORADO, then Nunn #1 and view.
 Download the file and process the text file as described above.
 
 ```
