@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.com/rstudio/bookdown-demo.svg?branch=master)](https://travis-ci.com/rstudio/bookdown-demo)
+# Selecting and accessing microclimate data: code resources
 
-This is a minimal example of a book based on R Markdown and **bookdown** (https://github.com/rstudio/bookdown). Please see the page "[Get Started](https://bookdown.org/yihui/bookdown/get-started.html)" at https://bookdown.org/yihui/bookdown/ for how to compile this example into HTML. You may generate a copy of the book in `bookdown::pdf_book` format by calling `bookdown::render_book('index.Rmd', 'bookdown::pdf_book')`. More detailed instructions are available here https://bookdown.org/yihui/bookdown/build-the-book.html.
+This repository contains R Markdown text for a bookdown site with resources for accessing microclimate datasets. Within chapters corresponding the each dataset, we discribe the requires set up and process for accessing data. The materials are complementary to an R Shiny [app](https://github.com/trenchproject/RShiny_Microclim) for selecting microclimate data.
 
-You can find the preview of this example at https://bookdown.org/yihui/bookdown-demo/.
+For more information on bookdown, please see the bookdown page "[Get Started](https://bookdown.org/yihui/bookdown/get-started.html)". You may generate a copy of the book in `bookdown::pdf_book` format by calling `bookdown::render_book('index.Rmd', 'bookdown::pdf_book')`. More detailed instructions are available [here]( https://bookdown.org/yihui/bookdown/build-the-book.html).
