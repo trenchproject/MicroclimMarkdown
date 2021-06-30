@@ -1,6 +1,6 @@
 Package: placeholder
 Type: Book
-Title: Does not matter.
+Title: Users guide to accessing microclimate data to characterize organismal responses to spatial and temporal environmental variability
 Version: 0.0.1
 Imports: bookdown
 Remotes: rstudio/bookdown
