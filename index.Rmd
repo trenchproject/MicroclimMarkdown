@@ -1,5 +1,5 @@
 --- 
-title: "A Users' Guide to Accessing Microclimate Data to Characterize Organismal Responses to Spatial and Temporal Environmental Variability"
+title: "TrEnCh Project Microclimate Data Users' Guide"
 author: "Yutaro Sakairi, Abigail Meyer, and Lauren Buckley; The TrEnCh Project, University of Washington"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
