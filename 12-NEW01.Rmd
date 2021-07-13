@@ -1,0 +1,50 @@
+---
+pagetitle: NEW01
+---
+
+# NEW01
+
+NEW01 is a gridded climatology of 1961-1990 monthly means.
+
+## How to use NEW01
+
+1. Install the NicheMapR R package. The build.global.climate function will download and combine the NEW01 data.
+
+```
+library(NicheMapR)
+
+build.global.climate(folder="PATH_TO_FOLDER")
+```
+
+## Code example
+
+***Getting maximum temperatures in Nunn, CO (-104.73°, 40.87°) for January 1-31 in 2017***
+
+```
+global_climate = brick("global_climate.nc")
+CLIMATE <- raster::extract(global_climate,cbind(-104.73, 40.87))
+
+# All available variables:
+# ALTT<-as.numeric(CLIMATE[,1]) # convert from km to m
+# RAINFALL <- CLIMATE[,2:13]
+# RAINYDAYS <- CLIMATE[,14:25]/10
+# WNMAXX <- CLIMATE[,26:37]/10
+# WNMINN<-WNMAXX*0.1 # impose diurnal cycle
+# TMINN <- CLIMATE[,38:49]/10
+# TMAXX <- CLIMATE[,50:61]/10
+# ALLMINTEMPS<-TMINN
+# ALLMAXTEMPS<-TMAXX
+# ALLTEMPS <- cbind(ALLMAXTEMPS,ALLMINTEMPS)
+# RHMINN <- CLIMATE[,62:73]/10
+# RHMAXX <- CLIMATE[,74:85]/10
+# CCMINN <- CLIMATE[,86:97]/10
+# CCMAXX<-CCMINN
+
+month <- 1
+arr <- CLIMATE[,(49+strtoi(month))]/10
+
+date <- paste0("2017-0", month, "-15")
+df <- data.frame("Date" = date, "Hour" = 12, "Data" = arr)
+df$Date <- format(as.POSIXct(paste0(df$Date, " ", df$Hour, ":00")), format = "%Y-%m-%d %H:%M")
+
+```

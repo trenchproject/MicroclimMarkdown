@@ -24,8 +24,6 @@ Below, we illustrate how to access SNODAS data using the NCAR/rwrfhydro package 
 ***Retrieving SWE and Snow Depth***
 
 ```
-#MAKE PATHS GENERIC
-
 library(rwrfhydro)
 
 # getPoints ----------------------------------------------------------------
@@ -156,9 +154,6 @@ for (i in 1:31){
 }
 
 
-# calculations ------------------------------------------------------------
-setwd('/Users/ameyer/RShiny_Microclim/Data/SNODAS')
-
 # Get dataframes for each location for both months
 snodasJanuaryWA <- getPoints(as.POSIXct('2017-01-01'),as.POSIXct('2017-01-31'),
                              snodasDir=getwd(),lat=47,lon=-118.57)
@@ -168,15 +163,6 @@ snodasJanuaryCO <- getPoints(as.POSIXct('2017-01-01'),as.POSIXct('2017-01-31'),
                              snodasDir=getwd(),lat=40.87,lon=-104.73)
 snodasJulyCO <- getPoints(as.POSIXct('2017-07-01'),as.POSIXct('2017-07-31'),
                              snodasDir=getwd(),lat=40.87,lon=-104.73)
-snodasJanuaryPR <- snodasJulyCO   # always 0
-snodasJulyPR <- snodasJulyCO      # always 0
 
-# Output csv files
-write.csv(snodasJanuaryWA, '/Users/ameyer/RShiny_Microclim/Data/SNODAS/snodasJanuaryWA.csv')
-write.csv(snodasJulyWA, '/Users/ameyer/RShiny_Microclim/Data/SNODAS/snodasJulyWA.csv')
-write.csv(snodasJanuaryCO, '/Users/ameyer/RShiny_Microclim/Data/SNODAS/snodasJanuaryCO.csv')
-write.csv(snodasJulyCO, '/Users/ameyer/RShiny_Microclim/Data/SNODAS/snodasJulyCO.csv')
-write.csv(snodasJanuaryPR, '/Users/ameyer/RShiny_Microclim/Data/SNODAS/snodasJanuaryPR.csv')
-write.csv(snodasJulyPR, '/Users/ameyer/RShiny_Microclim/Data/SNODAS/snodasJulyPR.csv')
 ```
 

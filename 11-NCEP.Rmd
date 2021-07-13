@@ -1,0 +1,60 @@
+---
+pagetitle: NCEP
+---
+
+# NCEP
+
+## How to use NCEP
+
+1. Navigate to the [NCEP/NCAR Reanalysis site](https://psl.noaa.gov/data/gridded/data.ncep.reanalysis.html).
+
+2. Navigate to desired variable (e.g. Surface -> Air temperature (4 times daily) -> 2m ->  air.2m.gauss.2017.nc) and download NetCDF file.
+
+3. In Rstudio, install the ncdf4, raster, and AOI packages.
+
+## Code example
+
+***Getting surface temperatures in Nunn, CO (-104.73°, 40.87°) for January 1-31 in 2017***
+
+From [this page](https://psl.noaa.gov/cgi-bin/db_search/DBListFiles.pl?did=195&tid=93660&vid=1251),
+download file skt.sfc.gauss.2017.nc
+
+
+```
+library(ncdf4)
+library(raster)
+library(AOI)
+
+grabNCEP <- function(var, loc, month) {
+
+  # Open variable file and pull out variable
+  nc <- nc_open(paste0("skt.sfc.gauss.2017.nc"))
+  ncvar <- ncvar_get(nc)
+  
+  # Find closest data point
+  lonInd <- match.closest(mod(-104.73,360), nc$dim$lon$vals)
+  lat <- sort(nc$dim$lat$vals)[match.closest(40.87, sort(nc$dim$lat$vals))]
+  latInd <- match(lat, nc$dim$lat$vals)
+  
+  # Pull values from dates of interest
+  vals <- c()
+  for (i in 1 : (4 * 31)) {
+    vals <- c(vals, ncvar[lonInd, latInd, i])
+  }
+  
+  # K to C
+  vals <- vals - 273.15
+  
+  # Create date column 
+  days <- c()
+  for (i in 1:31) {
+    days <- c(days, paste0("2017-0", month, "-", i))
+  }
+  
+  # Create dataframe with Date and Data
+  df <- data.frame("Date" = rep(days, each = 4), "Hour" = c(0,6,12,18), "Data" = vals)
+  
+  # Format date as POSIX
+  df$Date <- format(as.POSIXct(paste0(df$Date, " ", df$Hour, ":00")), format = "%Y-%m-%d %H:%M")
+  
+```

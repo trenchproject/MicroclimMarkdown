@@ -1,0 +1,206 @@
+---
+pagetitle: Microclimate Algorithms
+---
+
+# Microclimate Algorithms
+
+We demonstrate using NichMapR's microclimate functions micro_era5, micro_usa, micro_global, and micro_ncep that are forced with ERA-5, gridMET, NEW01, and NCEP data, respectively. The functions are designed for point locations.
+
+## How to use NicheMapR microclimate functions
+
+1. Install the NicheMapR package. For micro_era5, install the elevatr, ecmwfr, mcera5, lubridate, dplyr and tidync packages. For micro_ncep, install the RNCEP, elevatr, and microclima packages. For 
+
+2. Save the coordinates of the location of interest in an array. `lonlat <- c(lon, lat) # (longitude, latitude)`
+
+3. Save the start and end date for which you want to obtain data.
+```
+dstart <- paste0("01/0", month, "/2017") # start date
+dfinish <- paste0("31/0", month, "/2017") # end date
+```
+
+3. Save 10 different depths below ground as a variable. The values have to start from 0 and must have exactly 10 values regardless of what variables you are looking to obtain. `DEP <- c(0, 3, 5, 10, 15, 20, 30, 50, 100, 200)`
+
+4. Save the desired height at which all variables should be calcualted. `Usrhyt <- .01` for a 1cm height is common.
+
+5. Run the function with the above variables. Variables are stored under different categories depending on what you are looking for. `?micro_ncep` will give you a list of what each category includes and how each variable is named. 
+
+## Code example
+
+***Getting hourly air temperatures in Nunn, CO (-104.73°, 40.87°) for January 1-31 in 2017*** 
+
+### micro_era5()
+
+First, register for ERA5 data [here](https://cds.climate.copernicus.eu/user/register). Download the data using the mcera5 package.
+
+```
+# Fill $$$ will credentials from CDS
+uid <- "$$$$$$"
+cds_api_key <- "$$$$$$$$-$$$$-$$$$-$$$$-$$$$$$$$$$$$"
+
+ecmwfr::wf_set_key(user = uid, key = cds_api_key, service = "cds")
+
+# bounding coordinates (in WGS84 / EPSG:4326)
+xmn <- -104
+xmx <- -105
+ymn <- 40
+ymx <- 41
+
+# temporal extent
+st_time <- lubridate::ymd("2017:01:01")
+en_time <- lubridate::ymd("2017:01:31")
+
+# filename and location for downloaded .nc files
+file_prefix <- "era5"
+op <- "C:/Spatial_Data/"
+
+# build a request (covering multiple years)
+req <- build_era5_request(xmin = xmn, xmax = xmx,
+                          ymin = ymn, ymax = ymx,
+                          start_time = st_time,
+                          end_time = en_time,
+                          outfile_name = file_prefix)
+str(req)
+request_era5(request = req, uid = uid, out_path = op)
+```
+
+Once data downloads, run micro_era5()
+
+```
+library(NicheMapR)
+library(lubridate)
+library(dplyr)
+library(tidync)
+
+lonlat <- c(-104.73, 40.87) # (longitude, latitude)
+dstart <- paste0("01/01/2017") # start date
+dfinish <- paste0("31/01/2017") # end date
+DEP <- c(0, 3, 5, 10, 15, 20, 30, 50, 100, 200)
+
+micro <- micro_era5(loc = lonlat, dstart = dstart, dfinish = dfinish, DEP = DEP,
+                    runmoist = 0, runshade = 0, Usrhyt = 0.01)
+
+variable <- micro$metout[, "TALOC"]
+  
+variableDOY <- micro$metout[, "DOY"]
+variableHOUR <- micro$metout[, "TIME"]
+  
+vals <- c()
+begin <- 1 
+end <- begin + 24*31
+vals <- variable[begin:end]
+valsDOY <- variableDOY[begin:end]
+valsHOUR <- variableHOUR[begin:end]
+  
+days <- c()
+for (i in 1:31) {
+  days <- c(days, paste0("2017-0", month, "-", i))
+}
+
+df <- data.frame("Date" = rep(days, each = 24)[1 : (24 * 31)],
+                 "Hour" = rep(0 : 23, 31)[1 : (24 * 31)],
+                 "Data" = vals[0 : (24 * 31)])
+
+
+df$Date <- format(as.POSIXct(paste0(df$Date, " ", df$Hour, ":00")), format = "%Y-%m-%d %H:%M")
+```
+
+### micro_usa
+
+```
+library(NicheMapR)
+
+micro <- micro_USA(loc = lonlat, dstart = dstart, dfinish = dfinish, DEP = DEP,
+                        runmoist = 0, runshade = 0, Usrhyt = 0.01)
+
+variable <- micro$metout[, "TALOC"]
+  
+variableDOY <- micro$metout[, "DOY"]
+variableHOUR <- micro$metout[, "TIME"]
+  
+vals <- c()
+begin <- 1 
+end <- begin + 24*31
+vals <- variable[begin:end]
+valsDOY <- variableDOY[begin:end]
+valsHOUR <- variableHOUR[begin:end]
+  
+days <- c()
+for (i in 1:31) {
+  days <- c(days, paste0("2017-0", month, "-", i))
+}
+
+df <- data.frame("Date" = rep(days, each = 24)[1 : (24 * 31)],
+                 "Hour" = rep(0 : 23, 31)[1 : (24 * 31)],
+                 "Data" = vals[0 : (24 * 31)])
+
+
+df$Date <- format(as.POSIXct(paste0(df$Date, " ", df$Hour, ":00")), format = "%Y-%m-%d %H:%M")
+```
+
+### micro_global
+
+```
+library(NicheMapR)
+
+micro <- micro_global(loc = lonlat, dstart = dstart, dfinish = dfinish, DEP = DEP,
+                        runmoist = 0, runshade = 0, Usrhyt = 0.01)
+
+variable <- micro$metout[, "TALOC"]
+  
+variableDOY <- micro$metout[, "DOY"]
+variableHOUR <- micro$metout[, "TIME"]
+  
+vals <- c()
+begin <- 1 
+end <- begin + 24*31
+vals <- variable[begin:end]
+valsDOY <- variableDOY[begin:end]
+valsHOUR <- variableHOUR[begin:end]
+  
+days <- c()
+for (i in 1:31) {
+  days <- c(days, paste0("2017-0", month, "-", i))
+}
+
+df <- data.frame("Date" = rep(days, each = 24)[1 : (24 * 31)],
+                 "Hour" = rep(0 : 23, 31)[1 : (24 * 31)],
+                 "Data" = vals[0 : (24 * 31)])
+
+
+df$Date <- format(as.POSIXct(paste0(df$Date, " ", df$Hour, ":00")), format = "%Y-%m-%d %H:%M")
+```
+
+### micro_ncep
+
+```
+library(NicheMapR)
+library(RNCEP)
+library(elevatr)
+librar(microclima)
+
+micro <- micro_ncep(loc = lonlat, dstart = dstart, dfinish = dfinish, DEP = DEP,
+                         runmoist = 0, runshade = 0, Usrhyt = 0.01)
+
+variable <- micro$metout[, "TALOC"]
+variableDOY <- micro$metout[, "DOY"]
+variableHOUR <- micro$metout[, "TIME"]
+  
+vals <- c()
+begin <- 1 
+end <- begin + 24*31
+vals <- variable[begin:end]
+valsDOY <- variableDOY[begin:end]
+valsHOUR <- variableHOUR[begin:end]
+  
+days <- c()
+for (i in 1:31) {
+  days <- c(days, paste0("2017-0", month, "-", i))
+}
+
+df <- data.frame("Date" = rep(days, each = 24)[1 : (24 * 31)],
+                 "Hour" = rep(0 : 23, 31)[1 : (24 * 31)],
+                 "Data" = vals[0 : (24 * 31)])
+
+
+df$Date <- format(as.POSIXct(paste0(df$Date, " ", df$Hour, ":00")), format = "%Y-%m-%d %H:%M")  
+```
